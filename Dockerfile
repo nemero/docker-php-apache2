@@ -13,6 +13,9 @@ RUN docker-php-source extract \
 && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu \
 && docker-php-ext-install ldap pdo pdo_mysql xml json opcache session mbstring mysqli soap \
 && docker-php-ext-enable mysqli \
+&& pecl install redis \
+    && pecl install xdebug \
+&& docker-php-ext-enable redis xdebug \
 && a2enmod rewrite \
 && a2enmod ssl \
 && docker-php-source delete
