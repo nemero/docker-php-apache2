@@ -11,7 +11,7 @@ RUN docker-php-source extract \
 && docker-php-ext-install -j$(nproc) gd \
 && rm -rf /var/lib/apt/lists/* \
 && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu \
-&& docker-php-ext-install ldap pdo pdo_mysql xml json opcache session mbstring mysqli soap \
+&& docker-php-ext-install ldap pdo pdo_mysql xml json opcache session mbstring mysqli soap tokenizer \
 && docker-php-ext-enable mysqli \
 && a2enmod rewrite \
 && a2enmod ssl \
