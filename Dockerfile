@@ -1,4 +1,4 @@
-FROM php:7.1-apache
+FROM php:7.0.22-apache
 RUN docker-php-source extract \
 && apt-get update \
 && apt-get install libmcrypt-dev libldap2-dev libxml2-dev nano -y \
