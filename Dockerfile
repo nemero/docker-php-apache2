@@ -8,7 +8,8 @@ RUN docker-php-source extract \
         libpng12-dev \
         libapache2-mod-security2 \
         libxslt-dev \
-        libicu-dev\ 
+        libicu-dev \ 
+        libpq-dev \
         ssmtp \
         git \
 && curl -sS https://getcomposer.org/installer | php \
@@ -18,7 +19,7 @@ RUN docker-php-source extract \
 && docker-php-ext-install -j$(nproc) gd \
 && rm -rf /var/lib/apt/lists/* \
 && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu \
-&& docker-php-ext-install ldap pdo pdo_mysql xml json opcache session mbstring mysqli soap tokenizer zip mcrypt xsl intl \
+&& docker-php-ext-install ldap pdo pdo_mysql xml json opcache session mbstring mysqli soap tokenizer zip mcrypt xsl intl pdo_pgsql \
 && docker-php-ext-enable mysqli \
 && pecl install redis \
 && docker-php-ext-enable redis \
