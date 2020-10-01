@@ -4,7 +4,7 @@ RUN docker-php-source extract \
 && apt-get install libldap2-dev libxml2-dev nano -y \
         libapache2-mod-security2 \
         libxslt-dev \
-        libicu-dev \ 
+        libicu-dev \
         libpq-dev
 
 # Install SMTP
@@ -30,14 +30,12 @@ RUN apt-get update && \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         zip \
-
         libpng-dev \
         zlib1g-dev \
         libxml2-dev \
         libzip-dev \
         libonig-dev \
         graphviz \
-
         #jpegoptim \
         #optipng \
         #pngquant \
@@ -45,9 +43,14 @@ RUN apt-get update && \
         unzip
 
 # Install GD
-#RUN apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng12-dev \
-#        && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-#RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+RUN apt-get install -y libwebp-dev libxpm-dev
+RUN docker-php-ext-configure gd \
+		--enable-gd \
+		#--with-external-gd \
+		--with-jpeg \
+		--with-xpm \
+		--with-webp \
+		--with-freetype
 
 RUN     docker-php-ext-install gd
 
@@ -67,7 +70,7 @@ RUN docker-php-ext-configure opcache --enable-opcache \
     && docker-php-ext-install opcache
 
 # Install Other extenshions
-RUN docker-php-ext-install pdo pdo_mysql xml json opcache session mbstring mysqli zip soap tokenizer xsl intl pdo_pgsql 
+RUN docker-php-ext-install pdo pdo_mysql xml json opcache session mbstring mysqli zip soap tokenizer xsl intl pdo_pgsql
 
 RUN a2enmod rewrite \
         && a2enmod ssl \
